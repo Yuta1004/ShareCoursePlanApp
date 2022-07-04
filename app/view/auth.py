@@ -1,6 +1,6 @@
 from flask import session, request, redirect, render_template, Blueprint
 
-from db.auth import login
+from db import auth
 
 
 route_auth = Blueprint("auth", __name__, url_prefix="/auth")
@@ -18,7 +18,8 @@ def login_get():
 
 @route_auth.route("/login", methods=["POST"])
 def login_post():
-    if login(request.form["userid"], request.form["password"]):
+    result, user_id = auth.login(request.form["email"], request.form["password"])
+    if result:
         session["userid"] = request.form["userid"]
         return redirect("/")
     return render_template("login.html", warning_message="ログイン情報に誤りがあります")
