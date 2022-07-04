@@ -1,6 +1,13 @@
 version: "3"
 
 services:
+    redis:
+        image: "redis:7.0-alpine"
+        volumes:
+            - redis-datastore:/data
+        environment:
+            TZ: Asia/Tokyo
+
     mysql:
         image: mysql:8.0
         volumes:
@@ -31,4 +38,6 @@ services:
 
 volumes:
     mysql-datastore:
+        driver: local
+    redis-datastore:
         driver: local
