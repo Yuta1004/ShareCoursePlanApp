@@ -37,6 +37,13 @@ def login_post():
     return render_template("login.html", user=session["user"], warning_message="ログイン情報に誤りがあります")
 
 
-@route_auth.route("/logout")
-def logout():
+@route_auth.route("/logout", methods=["GET"])
+def logout_get():
     return render_template("logout.html", user=session["user"])
+
+
+@route_auth.route("/logout", methods=["POST"])
+def logout_post():
+    session["user"] = None
+    return redirect("/")
+
