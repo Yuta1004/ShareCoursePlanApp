@@ -27,11 +27,13 @@ def login(cur, email, password):
 @mysql_transaction
 def register(cur, name, email, password):
     if name == "" or email == "" or password == "" or len(password) < 8:
-        return False
+        return False, ""
 
     user_id = str(uuid()).replace("-", "")
     hashed_password = hashpw(password.encode(), gensalt(rounds=12, prefix=b'2a'))
 
-    cur.execute("INSERT INTO users VALUES (?, ?, ?)", (user_id, email, name))
-    cur.execute("INSERT INTO users_auth VALUES (?, ?)", (user_id, hashed_password))
-    cur.execute("INSERT INTO users_settings VALUES (?)", (user_id, ))
+    cur.execute("INSERT INTO users (user_id, email, name) VALUES (%s, %s, %s)", [user_id, email, name])
+    cur.execute("INSERT INTO users_auth VALUES (%s, %s)", [user_id, hashed_password])
+    cur.execute("INSERT INTO users_settings (user_id) VALUES (%s)", [user_id])
+
+    return True, user_id

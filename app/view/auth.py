@@ -6,9 +6,21 @@ from db import auth
 route_auth = Blueprint("auth", __name__, url_prefix="/auth")
 
 
-@route_auth.route("/register")
-def register():
-    return "Register Page"
+@route_auth.route("/register", methods=["GET"])
+def register_get():
+    return render_template("register.html")
+
+
+@route_auth.route("/register", methods=["POST"])
+def register_post():
+    if request.form["password"] != request.form["password2"]:
+        return render_template("register.html", warning_message="確認用パスワードが一致しません")
+
+    result, user_id = auth.register(request.form["name"], request.form["email"], request.form["password"])
+    if result:
+        session["userid"] = user_id
+        return redirect("/")
+    return render_template("register.html", warning_message="全ての入力欄に情報を入力して下さい")
 
 
 @route_auth.route("/login", methods=["GET"])
