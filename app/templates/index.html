@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>みんなの履修計画</title>
+</head>
+<body>
+    {% include "header.html" %}
+    <div class="container-fluid" style="max-width: 80%; margin-top: 50px;">
+        <h1>ユーザ投稿一覧</h1>
+        <p>{{ page }}ページ目</p>
+        {% if posts|length == 0 %}
+            <div class="alert alert-warning" role="alert">表示できる投稿がありません</div>
+        {% endif %}
+        {% for post in posts %}
+            <div class="card" style="margin-top: 20px; margin-bottom: 20px;">
+                <div class="card-body">
+                    <div class="card-text">
+                        投稿者: {{ post.name }}<br>
+                        投稿日時: {{ post.post_date }}<br>
+                    </div>
+                    <hr>
+                    <p class="card-text">{{ post.body }}</p>
+                    <a href="/post/detail?id={{ post._id }}" class="btn btn-info" role="button">
+                        投稿の詳細を見る ({{ post.replies_num }} 件の返信があります)
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+        <nav aria-label="Page navigation example" style="margin-top: 10px;">
+            <ul class="pagination">
+                {% if page == 1 %}
+                    <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">前のページへ</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{page-1}}">前のページへ</a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link" href="?page={{page+1}}">次のページへ</a></li>
+            </ul>
+        </nav>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>

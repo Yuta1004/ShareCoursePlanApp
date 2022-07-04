@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>投稿詳細 | みんなの履修計画</title>
+</head>
+<body>
+    {% include "header.html" %}
+    <div class="container-fluid" style="max-width: 80%; margin-top: 50px;">
+        <h1>投稿詳細</h1>
+        {% if post is none %}
+            <div class="alert alert-warning" role="alert">表示できる投稿がありません</div>
+        {% else %}
+            <div class="card" style="margin-top: 20px; margin-bottom: 20px;">
+                <div class="card-body">
+                    <div class="card-text">
+                        投稿者: {{ post.name }}<br>
+                        投稿日時: {{ post.post_date }}<br>
+                    </div>
+                    <hr>
+                    <p class="card-text">{{ post.body }}</p>
+                </div>
+            </div>
+        {% endif %}
+        {{ replies|length }} 件の返信があります
+        {% for reply in replies %}
+            <div class="card" style="margin-top: 20px; margin-bottom: 20px;">
+                <div class="card-body">
+                    <div class="card-text">
+                        投稿者: {{ reply.name }}<br>
+                        投稿日時: {{ reply.post_date }}<br>
+                    </div>
+                    <hr>
+                    <p class="card-text">{{ reply.body }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if post != none %}
+        <div class="container-fluid" style="max-width: 700px; margin-top: 50px; margin-bottom: 50px; padding: 30px; border: 1px dashed black;">
+            <form action="#"  method="post" enctype="multipart/form-data">
+                <h3>この投稿に返信する</h3>
+                <div class="mb-3">
+                    <label for="name" class="form-label">投稿者名※</label>
+                    <input type="text" class="form-control" name="name">
+                </div>
+                <div class="mb-3">
+                    <label for="body" class="form-label">本文※</label>
+                    <textarea class="form-control" rows="2" name="body"></textarea>
+                </div>
+                {% if warning_message is defined %}
+                    <div class="alert alert-warning" role="alert"> {{ warning_message }} </div>
+                {% endif %}
+                <div class="alert alert-info" role="alert">公序良俗に違反しない適切な投稿を心がけてください</div>
+                <button type="submit" class="btn btn-primary">投稿する</button>
+            </form>
+        </div>
+    {% endif %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>

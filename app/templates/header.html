@@ -1,0 +1,19 @@
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <div class="navbar-brand navbar-nav-lg mr-auto">
+            <a style="color: black; text-decoration: none;" href="/">
+                <b style="margin-right: 20px">みんなの履修計画</b>
+            </a>
+        </div>
+        <div class="navbar-nav">
+            <div class="inline">
+                {% if user is defined %}
+                    <a style="color: #333; text-decoration: none;" href="/auth/login">ログイン</a>
+                {% else %}
+                    <a style="color: #333; text-decoration: none; margin-right: 20px;" href="/user">ユーザページ</a>
+                    <a style="color: #333; text-decoration: none;" href="/auth/logout">ログアウト</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
