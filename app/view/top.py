@@ -1,4 +1,4 @@
-from flask import request, render_template, Blueprint
+from flask import session, request, render_template, Blueprint
 
 
 route_top = Blueprint("top", __name__, url_prefix="/")
@@ -11,4 +11,4 @@ def index():
         page = int(request.args["page"])
     except:
         pass
-    return render_template("index.html", page=page, posts=[])
+    return render_template("index.html", user=session["user"], page=page, posts=[])

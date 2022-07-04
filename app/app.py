@@ -24,11 +24,11 @@ app.register_blueprint(route_user)
 
 @app.before_request
 def before_request():
-    if "userid" not in session.keys():
-        session["userid"] = None
+    if "user" not in session.keys():
+        session["user"] = None
 
     needs_login = True not in [request.path == url for url in DONT_NEEDS_LOGIN_URLS]
-    if needs_login and session["userid"] is None:
+    if needs_login and session["user"] is None:
         return redirect("/auth/login")
 
 
