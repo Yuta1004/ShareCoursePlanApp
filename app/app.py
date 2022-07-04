@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import session, request, redirect, Flask
 
 from view.top import route_top
 from view.auth import route_auth
@@ -6,6 +6,9 @@ from view.post import route_post
 from view.settings import route_settings
 from view.subject import route_subject
 from view.user import route_user
+
+
+DONT_NEEDS_LOGIN_URLS = ["/", "/auth/login"]
 
 
 app = Flask(__name__)
@@ -17,6 +20,16 @@ app.register_blueprint(route_post)
 app.register_blueprint(route_settings)
 app.register_blueprint(route_subject)
 app.register_blueprint(route_user)
+
+
+@app.before_request
+def before_request():
+    if "userid" not in session.keys():
+        session["userid"] = None
+
+    needs_login = True not in [request.path == url for url in DONT_NEEDS_LOGIN_URLS]
+    if needs_login and session["userid"] is None:
+        return redirect("/auth/login")
 
 
 if __name__ == "__main__":
