@@ -8,7 +8,7 @@ from view.subject import route_subject
 from view.user import route_user
 
 
-DONT_NEEDS_LOGIN_URLS = ["/", "/auth/login"]
+DONT_NEEDS_LOGIN_URLS = ["/", "/auth/login", "/auth/register"]
 
 
 app = Flask(__name__)
