@@ -21,7 +21,7 @@ def login(cur, email, password):
     user_auth_info = cur.fetchall()
     if len(user_auth_info) != 1:
         return False, ""
-    return checkpw(password, user_auth_info[0]["user_id"]), user_auth[0]["hashed_pw"]
+    return checkpw(password.encode(), user_auth_info[0]["hashed_pw"].encode()), user_auth_info[0]["user_id"]
 
 
 @mysql_transaction

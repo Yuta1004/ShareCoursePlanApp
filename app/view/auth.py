@@ -32,7 +32,7 @@ def login_get():
 def login_post():
     result, user_id = auth.login(request.form["email"], request.form["password"])
     if result:
-        session["user"] = request.form["user"]
+        session["user"] = user_id
         return redirect("/")
     return render_template("login.html", user=session["user"], warning_message="ログイン情報に誤りがあります")
 
