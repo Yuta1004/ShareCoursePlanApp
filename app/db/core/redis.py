@@ -11,6 +11,11 @@ REDIS_CONN_SETTINGS = {
 
 def redis_conn(func):
     def wrapper(*args, **kwargs):
-        conn = Redis(**REDIS_CONN_SETTINGS)
-        func(conn, args, kwargs)
+        try:
+            conn = Redis(**REDIS_CONN_SETTINGS)
+            result = func(conn, *args, **kwargs)
+        except Exception as e:
+            print(e, flush=True)
+        conn.close()
+        return result
     return wrapper

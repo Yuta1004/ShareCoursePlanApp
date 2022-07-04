@@ -13,12 +13,14 @@ MYSQL_CONN_SETTINGS = {
 
 def mysql_transaction(func):
     def wrapper(*args, **kwargs):
+        result = None
         conn = pymysql.connect(**MYSQL_CONN_SETTINGS)
         try:
             with conn.cursor() as cur:
-                func(cur, args, kwargs)
+                result = func(cur, *args, **kwargs)
             conn.commit()
-        except:
-            pass
+        except Exception as e:
+            print(e, flush=True)
         conn.close()
+        return result
     return wrapper
