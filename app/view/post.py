@@ -19,6 +19,12 @@ def post_post():
     return render_template("post_success.html", session=session)
 
 
+@route_post.route("/template", methods=["POST"])
+def post_template_post():
+    template_text = "「{0} : {1}」で \"{2}\" を取りました!!".format(request.form["class_id"], request.form["name"], request.form["grade"])
+    return render_template("post.html", session=session, template_text=template_text)
+
+
 @route_post.route("/detail", methods=["GET"])
 def detail_get():
     post_id = request.args.get("id", "")

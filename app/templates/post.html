@@ -8,11 +8,11 @@
 <body>
     {% include "header.html" %}
     <div class="container-fluid" style="max-width: 700px; margin-top: 50px; margin-bottom: 50px; padding: 30px; border: 1px dashed black;">
-        <form action="#"  method="post" enctype="multipart/form-data">
+        <form action="/post"  method="post" enctype="multipart/form-data">
             <h1>投稿</h1>
             <div class="mb-3">
                 <label for="body" class="form-label">本文</label>
-                <textarea class="form-control" rows="10" name="body"></textarea>
+                <textarea class="form-control" rows="10" name="body">{{ template_text }}</textarea>
             </div>
             {% if warning_message is defined %}
                 <div class="alert alert-warning" role="alert"> {{ warning_message }} </div>

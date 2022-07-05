@@ -99,10 +99,14 @@
                                     {% endif %}
                                     {% if viewing_is_owner %}
                                         <td>
-                                            <form action="#"  method="post">
-                                                <input type="hidden" name="notice_taking_class" value="{{ class['class_id'] ~ ':' ~ class['name'] }}"/>
-                                                <button type="submit" class="btn">みんなに知らせる</button>
-                                            </form>
+                                            <div class="text-center">
+                                                <form action="/post/template"  method="post">
+                                                    <input type="hidden" name="class_id" value="{{ class['class_id'] }}"/>
+                                                    <input type="hidden" name="name" value="{{ class['name'] }}"/>
+                                                    <input type="hidden" name="grade" value="{{ class['grade'] }}"/>
+                                                    <button type="submit" class="btn btn-outline-primary">みんなに知らせる</button>
+                                                </form>
+                                            </div>
                                         </td>
                                     {% endif %}
                                 </tr>
