@@ -3,7 +3,7 @@ import redis
 
 
 REDIS_CONN_SETTINGS = {
-    "host": "mysql",
+    "host": "redis",
     "port": 6379,
     "db": 0
 }
