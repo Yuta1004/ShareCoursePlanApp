@@ -1,6 +1,6 @@
 from flask import session, request, render_template, Blueprint
 
-from db.post import save_post, get_post, save_reply, get_replies
+from db.post import save_post, get_post, save_reply, get_replies, incr_like_count
 
 
 route_post = Blueprint("post", __name__, url_prefix="/post")
@@ -31,6 +31,17 @@ def detail_get():
 
 @route_post.route("/detail", methods=["POST"])
 def detail_post():
+    incr_like_count(request.form["like"], session["id"])
+    post_id = request.args.get("id", "")
+    result, post = get_post(post_id)
+    replies = get_replies(post_id)
+    if not result:
+        return render_template("post_detail.html", session=session, warning_message="表示できる投稿がありません")
+    return render_template("post_detail.html", session=session, post=post, replies=replies)
+
+
+@route_post.route("/reply", methods=["POST"])
+def reply_post():
     reply_to = request.args.get("id", "")
     result = save_reply(reply_to, session["id"], request.form["body"])
     if not result:
