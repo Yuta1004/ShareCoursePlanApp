@@ -67,6 +67,7 @@ DROP TABLE IF EXISTS posts;
 CREATE TABLE posts (
     post_id     CHAR(32)                PRIMARY KEY,
     user_id     CHAR(32)    NOT NULL,
+    post_on     DATETIME    NOT NULL,
     `text`      VARCHAR(64) NOT NULL,
     reply_to    CHAR(32),
     FOREIGN KEY (user_id)
