@@ -1,10 +1,10 @@
 import io
 
 import pandas as pd
-from flask import session, request, render_template, Blueprint
+from flask import session, request, redirect, render_template, Blueprint
 from werkzeug.datastructures import FileStorage
 
-from db.subject import save_classes_from_csv, get_classes_not_registered
+from db.subject import save_classes_from_csv, get_classes_not_registered, register_classes
 
 
 route_subject = Blueprint("subject", __name__, url_prefix="/subject")
@@ -14,6 +14,12 @@ route_subject = Blueprint("subject", __name__, url_prefix="/subject")
 def subject_add_get():
     classes = get_classes_not_registered(session["id"])
     return render_template("subject_add.html", session=session, classes=classes)
+
+
+@route_subject.route("/add", methods=["POST"])
+def subject_add_post():
+    register_classes(session["id"], request.form.getlist("checked_classes"))
+    return redirect("/user")
 
 
 @route_subject.route("/remove")

@@ -21,6 +21,17 @@ def save_classes_from_csv(cur, pdobj):
 
 
 @mysql_transaction
+def register_classes(cur, user_id, classes):
+    cur.executemany(
+        """
+            INSERT INTO users_classes (user_id, class_id)
+            VALUES (%s, %s)
+        """,
+        list(map(lambda class_id: [user_id, class_id], classes))
+    )
+
+
+@mysql_transaction
 def get_classes_not_registered(cur, user_id):
     cur.execute(
         """

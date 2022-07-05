@@ -22,7 +22,7 @@
                 <tbody>
                     {% for class in classes %}
                         <tr>
-                            <td><input class="form-check-input" type="checkbox" id="{{ class['class_id'] }}"></td>
+                            <td><input class="form-check-input" type="checkbox" value="{{ class['class_id'] }}" name="checked_classes"></td>
                             <td scope="row">{{ class["class_id"] }}</td>
                             <td>{{ class["name"] }}</td>
                             <td>{{ class["credits"] }}</td>
