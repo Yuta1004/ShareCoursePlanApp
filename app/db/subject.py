@@ -44,3 +44,35 @@ def get_classes_not_registered(cur, user_id):
         [user_id]
     )
     return cur.fetchall()
+
+
+@mysql_transaction
+def get_classes_taking(cur, user_id):
+    cur.execute(
+        """
+            SELECT classes.class_id as class_id, classes.name as name, classes.credits as credits
+            FROM classes
+            LEFT JOIN (SELECT * from users_classes WHERE user_id = %s) as users_classes
+                ON classes.class_id = users_classes.class_id
+            WHERE users_classes.user_id is not NULL AND
+                  users_classes.grade is NULL
+        """,
+        [user_id]
+    )
+    return cur.fetchall()
+
+
+@mysql_transaction
+def get_classes_completed(cur, user_id):
+    cur.execute(
+        """
+            SELECT classes.class_id as class_id, classes.name as name, classes.credits as credits, users_classes.grade as grade
+            FROM classes
+            LEFT JOIN (SELECT * from users_classes WHERE user_id = %s) as users_classes
+                ON classes.class_id = users_classes.class_id
+            WHERE users_classes.user_id is not NULL AND
+                  users_classes.grade is not NULL
+        """,
+        [user_id]
+    )
+    return cur.fetchall()

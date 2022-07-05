@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>{{ viewing_user }}さんのユーザページ | みんなの履修計画</title>
+</head>
+<body>
+    {% include "header.html" %}
+    <div class="container-fluid" style="max-width: 65%; margin-top: 50px;">
+        <h1>{{ viewing_user }}</h1>
+        <div class="card" style="margin-top: 20px; margin-bottom: 20px;">
+            <div class="card-body">
+                <h3 class="cart-title">履修中の科目</h3>
+                <hr>
+                <form action="#"  method="post">
+                    <div class="inline">
+                        <a class="btn btn-primary" href="/subject/add">履修科目を追加する</a>
+                        <button type="submit" class="btn btn-primary">成績を確定する</button>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">科目番号</th>
+                                <th scope="col">科目名</th>
+                                <th scope="col">単位数</th>
+                                <th scope="col">成績</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for class in taking_classes %}
+                                <tr>
+                                    <td scope="row">{{ class["class_id"] }}</td>
+                                    <td>{{ class["name"] }}</td>
+                                    <td>{{ class["credits"] }}</td>
+                                    <td>
+                                        <select class="form-select" name="{{ class['class_id'] }}">
+                                            <option value="" selected>履修中</option>
+                                            <option value="A+">A+</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                            <option value="P">P</option>
+                                            <option value="F">F</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="card" style="margin-top: 20px; margin-bottom: 20px;">
+            <div class="card-body">
+                <h3 class="cart-title">履修完了した科目</h3>
+                <hr>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">科目番号</th>
+                            <th scope="col">科目名</th>
+                            <th scope="col">単位数</th>
+                            <th scope="col">成績</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for class in completed_classes %}
+                            <tr>
+                                <td scope="row">{{ class["class_id"] }}</td>
+                                <td>{{ class["name"] }}</td>
+                                <td>{{ class["credits"] }}</td>
+                                <td>{{ class["grade"] }}</td>
+                                <td>
+                                    <form action="#"  method="post">
+                                        <input type="hidden" name="notice_taking_class" value="{{ class['class_id'] ~ ':' ~ class['name'] }}"/>
+                                        <button type="submit" class="btn">みんなに知らせる</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>
