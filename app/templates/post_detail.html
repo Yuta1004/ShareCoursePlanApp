@@ -78,12 +78,13 @@
         <div class="container-fluid" style="max-width: 700px; margin-top: 50px; margin-bottom: 50px; padding: 30px; border: 1px dashed black;">
             <form action="/post/reply"  method="post" enctype="multipart/form-data">
                 <h3>この投稿に返信する</h3>
+                <input type="hidden" value="{{ post['post_id'] }}" name="id"/>
                 <div class="mb-3">
                     <label for="body" class="form-label">本文※</label>
                     <textarea class="form-control" rows="2" name="body"></textarea>
                 </div>
-                {% if warning_message is defined %}
-                    <div class="alert alert-warning" role="alert"> {{ warning_message }} </div>
+                {% if reply_warning_message is defined %}
+                    <div class="alert alert-warning" role="alert"> {{ reply_warning_message }} </div>
                 {% endif %}
                 <div class="alert alert-info" role="alert">公序良俗に違反しない適切な投稿を心がけてください</div>
                 <button type="submit" class="btn btn-primary">投稿する</button>

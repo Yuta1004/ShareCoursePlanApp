@@ -42,8 +42,10 @@ def detail_post():
 
 @route_post.route("/reply", methods=["POST"])
 def reply_post():
-    reply_to = request.args.get("id", "")
+    reply_to = request.form.get("id", "")
     result = save_reply(reply_to, session["id"], request.form["body"])
     if not result:
-        return render_template("post_detail.html", session=session, warning_message="全ての入力欄に入力してください")
+        _, post = get_post(reply_to)
+        replies = get_replies(reply_to)
+        return render_template("post_detail.html", session=session, post=post, replies=replies, reply_warning_message="全ての入力欄に入力してください")
     return render_template("post_reply_success.html", session=session)
