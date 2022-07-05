@@ -27,6 +27,7 @@ def before_request():
     if "logined" not in session.keys():
         session["logined"] = False
         session["is_admin"] = False
+        session["id"] = ""
         session["name"] = ""
 
     needs_login = True not in [request.path == url for url in DONT_NEEDS_LOGIN_URLS]

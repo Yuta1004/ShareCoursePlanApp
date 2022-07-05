@@ -20,6 +20,7 @@ def register_post():
     if result:
         session["logined"] = True
         session["is_admin"] = is_admin
+        session["id"] = user_id
         session["name"] = user_name
         return redirect("/")
     return render_template("register.html", session=session, warning_message="全ての入力欄に情報を入力して下さい")
@@ -36,6 +37,7 @@ def login_post():
     if result:
         session["logined"] = True
         session["is_admin"] = is_admin
+        session["id"] = user_id
         session["name"] = user_name
         return redirect("/")
     return render_template("login.html", session=session, warning_message="ログイン情報に誤りがあります")
@@ -50,5 +52,6 @@ def logout_get():
 def logout_post():
     del session["logined"]
     del session["is_admin"]
+    del session["id"]
     del session["name"]
     return redirect("/")
