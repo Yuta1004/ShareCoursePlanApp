@@ -32,6 +32,18 @@ def register_classes(cur, user_id, classes):
 
 
 @mysql_transaction
+def set_grade(cur, user_id, class_id, grade):
+    cur.execute(
+        """
+            UPDATE users_classes
+            SET grade = %s
+            WHERE user_id = %s AND class_id = %s
+        """,
+        [grade ,user_id, class_id]
+    )
+
+
+@mysql_transaction
 def get_classes_not_registered(cur, user_id):
     cur.execute(
         """
