@@ -19,6 +19,12 @@
             <div class="card-body">
                 <h3 class="cart-title">ユーザ情報設定</h3>
                 <hr>
+                <label>ユーザの種類</label>
+                {% if session["is_admin"] %}
+                    <p><b>システム管理者</b></p>
+                {% else %}
+                    <p><b>一般ユーザ</b></p>
+                {% endif %}
                 <form action="/settings/user"  method="post">
                     <div class="mb-3">
                         <label for="email" class="form-label">メールアドレス</label>
