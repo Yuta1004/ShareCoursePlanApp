@@ -41,8 +41,7 @@ DROP TABLE IF EXISTS classes;
 CREATE TABLE classes (
     class_id    CHAR(16)                PRIMARY KEY,
     `name`      CHAR(32)    NOT NULL,
-    credits     INTEGER     NOT NULL,
-    year        INTEGER     NOT NULL
+    credits     FLOAT       NOT NULL
 );
 
 /* 5. 履修&成績管理 */
