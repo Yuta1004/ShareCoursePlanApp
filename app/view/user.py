@@ -2,7 +2,7 @@ from flask import session, redirect, request, render_template, Blueprint
 
 from db.user import get_user_info
 from db.settings import get_visibility
-from db.subject import set_grade, get_classes_taking, get_classes_completed
+from db.subject import remove_class, set_grade, get_classes_taking, get_classes_completed
 
 
 route_user = Blueprint("user", __name__, url_prefix="/user")
@@ -25,6 +25,8 @@ def user_get():
 @route_user.route("/", methods=["POST"])
 def user_post():
     for class_id, grade in request.form.items():
-        if grade != "":
+        if grade == "R":
+            remove_class(session["id"], class_id)
+        elif grade != "":
             set_grade(session["id"], class_id, grade)
     return redirect("/user")

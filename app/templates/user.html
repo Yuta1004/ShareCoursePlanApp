@@ -32,7 +32,7 @@
                                     <th scope="col">科目名</th>
                                     <th scope="col">単位数</th>
                                     {% if viewing_is_owner %}
-                                        <th scope="col">成績</th>
+                                        <th scope="col">成績・状態</th>
                                     {% endif %}
                                 </tr>
                             </thead>
@@ -46,6 +46,7 @@
                                             <td>
                                                 <select class="form-select" name="{{ class['class_id'] }}">
                                                     <option value="" selected>履修中</option>
+                                                    <option value="R">履修取り消し</option>
                                                     <option value="A+">A+</option>
                                                     <option value="A">A</option>
                                                     <option value="B">B</option>

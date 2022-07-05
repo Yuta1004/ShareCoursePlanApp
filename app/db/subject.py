@@ -32,6 +32,17 @@ def register_classes(cur, user_id, classes):
 
 
 @mysql_transaction
+def remove_class(cur, user_id, class_id):
+    cur.execute(
+        """
+            DELETE
+            FROM users_classes
+            WHERE user_id = %s AND class_id = %s 
+        """,
+        [user_id, class_id]
+    )
+
+@mysql_transaction
 def set_grade(cur, user_id, class_id, grade):
     cur.execute(
         """
