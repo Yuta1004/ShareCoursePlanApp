@@ -9,6 +9,7 @@
             <div class="inline">
                 {% if session["logined"] %}
                     <a style="color: #333; text-decoration: none; margin-right: 20px;" href="/user">{{ session["name"] }}さんのユーザページ</a>
+                    <a style="color: #333; text-decoration: none; margin-right: 20px;" href="/settings">設定</a>
                     <a style="color: #333; text-decoration: none;" href="/auth/logout">ログアウト</a>
                 {% else %}
                     <a style="color: #333; text-decoration: none; margin-right: 20px;" href="/auth/login">ログイン</a>
