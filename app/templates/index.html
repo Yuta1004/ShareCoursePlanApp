@@ -17,13 +17,13 @@
             <div class="card" style="margin-top: 20px; margin-bottom: 20px;">
                 <div class="card-body">
                     <div class="card-text">
-                        投稿者: {{ post.name }}<br>
-                        投稿日時: {{ post.post_date }}<br>
+                        投稿者: <a href="/user?id={{ post['user_id'] }}">{{ post["name"] }}</a><br>
+                        投稿日時: {{ post["post_on"] }}<br>
                     </div>
                     <hr>
-                    <p class="card-text">{{ post.body }}</p>
-                    <a href="/post/detail?id={{ post._id }}" class="btn btn-info" role="button">
-                        投稿の詳細を見る ({{ post.replies_num }} 件の返信があります)
+                    <p class="card-text">{{ post["text"] }}</p>
+                    <a href="/post/detail?id={{ post['post_id'] }}" class="btn btn-info" role="button">
+                        投稿の詳細を見る ({{ post["replies_num"] }} 件の返信があります)
                     </a>
                 </div>
             </div>
