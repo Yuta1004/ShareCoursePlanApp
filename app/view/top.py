@@ -11,4 +11,4 @@ def index():
         page = int(request.args["page"])
     except:
         pass
-    return render_template("index.html", user=session["user"], page=page, posts=[])
+    return render_template("index.html", session=session, page=page, posts=[])

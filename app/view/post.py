@@ -6,9 +6,9 @@ route_post = Blueprint("post", __name__, url_prefix="/post")
 
 @route_post.route("/")
 def post():
-    return render_template("post.html", user=session["user"])
+    return render_template("post.html", session=session)
 
 
 @route_post.route("/detail")
 def detail():
-    return render_template("post_detail.html", user=session["user"])
+    return render_template("post_detail.html", session=session)

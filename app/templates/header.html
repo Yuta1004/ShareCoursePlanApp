@@ -7,12 +7,12 @@
         </div>
         <div class="navbar-nav">
             <div class="inline">
-                {% if user is none %}
+                {% if session["logined"] %}
+                    <a style="color: #333; text-decoration: none; margin-right: 20px;" href="/user">{{ session["name"] }}さんのユーザページ</a>
+                    <a style="color: #333; text-decoration: none;" href="/auth/logout">ログアウト</a>
+                {% else %}
                     <a style="color: #333; text-decoration: none; margin-right: 20px;" href="/auth/login">ログイン</a>
                     <a style="color: #333; text-decoration: none;" href="/auth/register">ユーザ登録</a>
-                {% else %}
-                    <a style="color: #333; text-decoration: none; margin-right: 20px;" href="/user">ユーザページ</a>
-                    <a style="color: #333; text-decoration: none;" href="/auth/logout">ログアウト</a>
                 {% endif %}
             </div>
         </div>
