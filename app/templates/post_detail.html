@@ -9,17 +9,17 @@
     {% include "header.html" %}
     <div class="container-fluid" style="max-width: 80%; margin-top: 50px;">
         <h1>投稿詳細</h1>
-        {% if post is none %}
-            <div class="alert alert-warning" role="alert">表示できる投稿がありません</div>
+        {% if warning_message is defined %}
+            <div class="alert alert-warning" role="alert">{{ warning_message }}</div>
         {% else %}
             <div class="card" style="margin-top: 20px; margin-bottom: 20px;">
                 <div class="card-body">
                     <div class="card-text">
-                        投稿者: {{ post.name }}<br>
-                        投稿日時: {{ post.post_date }}<br>
+                        投稿者: <a href="/user?id={{ post['user_id'] }}">{{ post["name"] }}</a><br>
+                        投稿日時: {{ post["post_on"] }}<br>
                     </div>
                     <hr>
-                    <p class="card-text">{{ post.body }}</p>
+                    <p class="card-text">{{ post["text"] }}</p>
                 </div>
             </div>
         {% endif %}
@@ -28,11 +28,11 @@
             <div class="card" style="margin-top: 20px; margin-bottom: 20px;">
                 <div class="card-body">
                     <div class="card-text">
-                        投稿者: {{ reply.name }}<br>
-                        投稿日時: {{ reply.post_date }}<br>
+                        投稿者: <a href="/user?id={{ reply['user_id'] }}">{{ reply["name"] }}</a><br>
+                        投稿日時: {{ reply["post_on"] }}<br>
                     </div>
                     <hr>
-                    <p class="card-text">{{ reply.body }}</p>
+                    <p class="card-text">{{ reply["text"] }}</p>
                 </div>
             </div>
         {% endfor %}
