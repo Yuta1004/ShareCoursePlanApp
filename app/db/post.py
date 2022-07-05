@@ -58,6 +58,23 @@ def get_posts(cur, page=1, page_size=10):
 
 
 @mysql_transaction
+def save_reply(cur, reply_to, user_id, text):
+    if text == "":
+        return False
+
+    post_id = str(uuid()).replace("-", "")
+
+    cur.execute(
+        """
+            INSERT INTO posts
+            VALUES (%s, %s, NOW(), %s, %s)
+        """,
+        [post_id, user_id, text, reply_to]
+    )
+    return True
+
+
+@mysql_transaction
 def get_replies(cur, post_id):
     cur.execute(
         """

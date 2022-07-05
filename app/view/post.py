@@ -1,6 +1,6 @@
 from flask import session, request, render_template, Blueprint
 
-from db.post import save_post, get_post, get_replies
+from db.post import save_post, get_post, save_reply, get_replies
 
 
 route_post = Blueprint("post", __name__, url_prefix="/post")
@@ -19,11 +19,20 @@ def post_post():
     return render_template("post_success.html", session=session)
 
 
-@route_post.route("/detail")
-def detail():
+@route_post.route("/detail", methods=["GET"])
+def detail_get():
     post_id = request.args.get("id", "")
     result, post = get_post(post_id)
     replies = get_replies(post_id)
     if not result:
         return render_template("post_detail.html", session=session, warning_message="表示できる投稿がありません")
     return render_template("post_detail.html", session=session, post=post, replies=replies)
+
+
+@route_post.route("/detail", methods=["POST"])
+def detail_post():
+    reply_to = request.args.get("id", "")
+    result = save_reply(reply_to, session["id"], request.form["body"])
+    if not result:
+        return render_template("post_detail.html", session=session, warning_message="全ての入力欄に入力してください")
+    return render_template("post_reply_success.html", session=session)
