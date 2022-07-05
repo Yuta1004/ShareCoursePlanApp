@@ -19,11 +19,11 @@
                 <form action="#"  method="post">
                     <div class="mb-3">
                         <label for="email" class="form-label">メールアドレス</label>
-                        <input type="text" class="form-control" name="email">
+                        <input type="text" class="form-control" name="email" value="{{ email }}">
                     </div>
                     <div class="mb-3">
                         <label for="name" class="form-label">名前</label>
-                        <input type="text" class="form-control" name="name">
+                        <input type="text" class="form-control" name="name" value="{{ name }}">
                     </div>
                     <button type="submit" class="btn btn-primary">更新</button>
                 </form>
@@ -52,15 +52,27 @@
                 <hr>
                 <form action="/settings/visibility" method="post">
                     <div class="mb-3">
-                        <input class="form-check-input" type="checkbox" value="taking_class_is_public" name="settings">
+                        {% if taking_class_is_public %}
+                            <input class="form-check-input" type="checkbox" value="taking_class_is_public" name="settings" checked>
+                        {% else %}
+                            <input class="form-check-input" type="checkbox" value="taking_class_is_public" name="settings">
+                        {% endif %}
                         <label for="settings" class="form-label">履修中の科目を公開する</label>
                     </div>
                     <div class="mb-3">
-                        <input class="form-check-input" type="checkbox" value="complete_class_is_public" name="settings">
+                        {% if complete_class_is_public %}
+                            <input class="form-check-input" type="checkbox" value="complete_class_is_public" name="settings" checked>
+                        {% else %}
+                            <input class="form-check-input" type="checkbox" value="complete_class_is_public" name="settings">
+                        {% endif %}
                         <label for="settings" class="form-label">履修完了した科目を公開する</label>
                     </div>
                     <div class="mb-3">
-                        <input class="form-check-input" type="checkbox" value="grade_is_public" name="settings">
+                        {% if grade_is_public %}
+                            <input class="form-check-input" type="checkbox" value="grade_is_public" name="settings" checked>
+                        {% else %}
+                            <input class="form-check-input" type="checkbox" value="grade_is_public" name="settings">
+                        {% endif %}
                         <label for="settings" class="form-label">成績を公開する</label>
                     </div>
                     <button type="submit" class="btn btn-primary">更新</button>
