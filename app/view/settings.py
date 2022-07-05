@@ -37,7 +37,7 @@ def settings_visibility():
     update_visibility(
         session["id"],
         "taking_class_is_public" in request.form.getlist("settings"),
-        "compilete_class_is_public" in request.form.getlist("settings"),
+        "complete_class_is_public" in request.form.getlist("settings"),
         "grade_is_public" in request.form.getlist("settings")
     )
     return render_template("settings.html", **load_settings(session["id"]), success=True)
