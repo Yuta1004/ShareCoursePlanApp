@@ -106,5 +106,5 @@ def get_replies(mcur, rconn, post_id):
 
 @redis_conn
 def incr_like_count(rconn, post_id, user_id):
-    if post_id != "" and rconn.sadd("post:liked:"+post_id+":"+user_id, "done") == 1:
+    if post_id != "" and user_id != "" and rconn.sadd("post:liked:"+post_id+":"+user_id, "done") == 1:
         rconn.hincrby(post_id, "like_count", 1)

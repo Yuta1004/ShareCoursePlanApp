@@ -21,14 +21,22 @@
                         投稿者: <a href="/user?id={{ post['user_id'] }}">{{ post["name"] }}</a><br>
                         投稿日時: {{ post["post_on"] }}<br>
                         <div class="position-absolute top-0 end-0">
-                            <form action="#" method="post">
-                                <input type="hidden" name="like" value="{{ post['post_id'] }}"/>
-                                <button type="submit" class="btn btn-outline-danger" style="margin: 20px;">
+                            {% if session["logined"] %}
+                                <form action="#" method="post">
+                                    <input type="hidden" name="like" value="{{ post['post_id'] }}"/>
+                                    <button type="submit" class="btn btn-outline-danger" style="margin: 20px;">
+                                        <i class="fas fa-heart"></i>
+                                        {{ post["like_count"] }}
+                                        いいね！
+                                    </button>
+                                </form>
+                            {% else %}
+                                <button class="btn btn-outline-danger" style="margin: 20px;" disabled>
                                     <i class="fas fa-heart"></i>
                                     {{ post["like_count"] }}
                                     いいね！
                                 </button>
-                            </form>
+                            {% endif %}
                         </div>
                     </div>
                     <hr>
