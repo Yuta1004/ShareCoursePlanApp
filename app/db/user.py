@@ -15,3 +15,19 @@ def get_user_info(cur, user_id):
     if len(user_info) != 1:
         return False, {"user_id": "", "email": "", "name": ""}
     return True, user_info[0]
+
+
+@mysql_transaction
+def update_user_info(cur, user_id, email, name):
+    if email == "" or name == "":
+        return False
+
+    cur.execute(
+        """
+            UPDATE users
+            SET email = %s, name = %s
+            WHERE user_id = %s
+        """,
+        [email, name, user_id]
+    )
+    return True

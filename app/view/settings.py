@@ -1,6 +1,6 @@
 from flask import session, request, render_template, Blueprint
 
-from db.user import get_user_info
+from db.user import get_user_info, update_user_info
 from db.settings import get_visibility, update_visibility
 
 
@@ -14,7 +14,10 @@ def settings():
 
 @route_settings.route("/user", methods=["POST"])
 def settings_user():
-    print(request.form, flush=True)
+    result = update_user_info(session["id"], request.form["email"], request.form["name"])
+    if not result:
+        return render_template("settings.html", **load_settings(session["id"]), warning_message="全ての入力欄に入力してください")
+    session["name"] = request.form["name"]
     return render_template("settings.html", **load_settings(session["id"]))
 
 
