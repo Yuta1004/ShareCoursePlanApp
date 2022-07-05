@@ -1,5 +1,6 @@
 from flask import session, request, render_template, Blueprint
 
+from db.auth import update_password
 from db.user import get_user_info, update_user_info
 from db.settings import get_visibility, update_visibility
 
@@ -23,7 +24,11 @@ def settings_user():
 
 @route_settings.route("/password", methods=["POST"])
 def settings_password():
-    print(request.form, flush=True)
+    if request.form["password"] != request.form["password2"]:
+        return render_template("settings.html", **load_settings(session["id"]), warning_message="確認用パスワードが一致しません")
+    result = update_password(session["id"], request.form["password"])
+    if not result:
+        return render_template("settings.html", **load_settings(session["id"]), warning_message="8文字以上のパスワードを入力してください")
     return render_template("settings.html", **load_settings(session["id"]))
 
 
