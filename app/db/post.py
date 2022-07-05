@@ -94,9 +94,10 @@ def get_replies(mcur, rconn, post_id):
             FROM posts
             LEFT JOIN users
                 ON posts.user_id = users.user_id
-            WHERE posts.reply_to is not NULL
+            WHERE posts.reply_to is not NULL AND posts.reply_to = %s
             ORDER BY posts.post_on ASC
-        """
+        """,
+        [post_id]
     )
     replies = mcur.fetchall()
     for idx in range(len(replies)):
