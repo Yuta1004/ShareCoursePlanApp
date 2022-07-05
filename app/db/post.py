@@ -39,7 +39,7 @@ def get_post(mcur, rconn, post_id):
     post = mcur.fetchall()
     if len(post) != 1:
         return False, {}
-    post[0]["like_count"] = rconn.hget(post[0]["post_id"], "like_count")
+    post[0]["like_count"] = int(rconn.hget(post[0]["post_id"], "like_count"))
     return True, post[0]
 
 
@@ -62,7 +62,7 @@ def get_posts(mcur, rconn, page=1, page_size=10):
     )
     posts = mcur.fetchall()
     for idx in range(len(posts)):
-        posts[idx]["like_count"] = rconn.hget(posts[idx]["post_id"], "like_count")
+        posts[idx]["like_count"] = int(rconn.hget(posts[idx]["post_id"], "like_count"))
     return posts
 
 
@@ -100,7 +100,7 @@ def get_replies(mcur, rconn, post_id):
     )
     replies = mcur.fetchall()
     for idx in range(len(replies)):
-        replies[idx]["like_count"] = rconn.hget(replies[idx]["post_id"], "like_count")
+        replies[idx]["like_count"] = int(rconn.hget(replies[idx]["post_id"], "like_count"))
     return replies
 
 
