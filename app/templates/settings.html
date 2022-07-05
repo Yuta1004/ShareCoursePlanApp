@@ -82,6 +82,15 @@
                 </form>
             </div>
         </div>
+        {% if session["is_admin"] %}
+            <div class="card" style="margin-top: 20px; margin-bottom: 20px;">
+                <div class="card-body">
+                    <h3 class="cart-title">科目追加</h3>
+                    <hr>
+                    <a class="btn btn-primary" href="/subject/csv">CSVファイルを使用して追加する</a>
+                </div>
+            </div>
+        {% endif %}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>
