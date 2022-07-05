@@ -19,7 +19,7 @@ def settings_user():
     if not result:
         return render_template("settings.html", **load_settings(session["id"]), warning_message="全ての入力欄に入力してください")
     session["name"] = request.form["name"]
-    return render_template("settings.html", **load_settings(session["id"]))
+    return render_template("settings.html", **load_settings(session["id"]), success=True)
 
 
 @route_settings.route("/password", methods=["POST"])
@@ -29,7 +29,7 @@ def settings_password():
     result = update_password(session["id"], request.form["password"])
     if not result:
         return render_template("settings.html", **load_settings(session["id"]), warning_message="8文字以上のパスワードを入力してください")
-    return render_template("settings.html", **load_settings(session["id"]))
+    return render_template("settings.html", **load_settings(session["id"]), success=True)
 
 
 @route_settings.route("/visibility", methods=["POST"])
@@ -40,7 +40,7 @@ def settings_visibility():
         "compilete_class_is_public" in request.form.getlist("settings"),
         "grade_is_public" in request.form.getlist("settings")
     )
-    return render_template("settings.html", **load_settings(session["id"]))
+    return render_template("settings.html", **load_settings(session["id"]), success=True)
 
 
 def load_settings(user_id):
