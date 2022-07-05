@@ -4,15 +4,16 @@ import pandas as pd
 from flask import session, request, render_template, Blueprint
 from werkzeug.datastructures import FileStorage
 
-from db.subject import save_classes_from_csv
+from db.subject import save_classes_from_csv, get_classes_not_registered
 
 
 route_subject = Blueprint("subject", __name__, url_prefix="/subject")
 
 
-@route_subject.route("/add")
-def subject_add():
-    return "Subject Add Page"
+@route_subject.route("/add", methods=["GET"])
+def subject_add_get():
+    classes = get_classes_not_registered(session["id"])
+    return render_template("subject_add.html", session=session, classes=classes)
 
 
 @route_subject.route("/remove")
