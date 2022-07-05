@@ -1,4 +1,4 @@
-from flask import session, render_template, Blueprint
+from flask import session, request, render_template, Blueprint
 
 from db.user import get_user_info
 from db.settings import get_visibility
@@ -9,6 +9,24 @@ route_settings = Blueprint("settings", __name__, url_prefix="/settings")
 
 @route_settings.route("/")
 def settings():
+    return render_template("settings.html", **load_settings(session["id"]))
+
+
+@route_settings.route("/user", methods=["POST"])
+def settings_user():
+    print(request.form, flush=True)
+    return render_template("settings.html", **load_settings(session["id"]))
+
+
+@route_settings.route("/password", methods=["POST"])
+def settings_password():
+    print(request.form, flush=True)
+    return render_template("settings.html", **load_settings(session["id"]))
+
+
+@route_settings.route("/visibility", methods=["POST"])
+def settings_visibility():
+    print(request.form, flush=True)
     return render_template("settings.html", **load_settings(session["id"]))
 
 
